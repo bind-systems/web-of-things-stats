@@ -4,7 +4,8 @@ Displaying data and statistics about "Web of Things WoT" with a Lit component fr
 
 **Usage**
 
-```<wot-stats></wot-stats>
+```
+    <wot-stats></wot-stats>
     <script type="module" src="./stats.js"></script>
 ```
 
