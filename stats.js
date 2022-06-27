@@ -4,9 +4,9 @@ import {
   LitElement,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 import fetchStackoverflowQuestions from "./api/stackoverflow.js";
+import fetchGithubRepos from "./api/githubRepos.js";
 import fetchNpmDownloads from "./api/npm.js";
 import fetchGithubStars from "./api/githubStars.js";
-import fetchGithubRepos from "./api/githubRepos.js";
 
 class Stats extends LitElement {
   static properties = {
@@ -23,6 +23,11 @@ class Stats extends LitElement {
       "web-of-things"
     );
 
+    this.githubTopics = await fetchGithubRepos("web-of-things");
+
+    // this.githubTopics = 69;
+    // this.stackoverflowQuestions = 69;
+
     this.numberOfDownloadsCore = await fetchNpmDownloads("@node-wot", "core");
 
     this.numberOfDownloadsModbus = await fetchNpmDownloads(
@@ -34,8 +39,6 @@ class Stats extends LitElement {
       "@node-wot",
       "binding-http"
     );
-
-    this.githubTopics = await fetchGithubRepos("web-of-things");
 
     this.githubStars = await fetchGithubStars("w3c", "wot");
   }
