@@ -3,6 +3,11 @@ import {
   css,
   LitElement,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import fetchStackoverflowQuestions from "./api/stackoverflow.js";
+import fetchNpmDownloads from "./api/npm.js";
+import fetchGithubStars from "./api/githubStars.js";
+import fetchGithubRepos from "./api/githubRepos.js";
+
 class Stats extends LitElement {
   static properties = {
     stackoverflowQuestions: { type: Number },
@@ -14,51 +19,25 @@ class Stats extends LitElement {
   };
 
   async fetchStats() {
-    // number of questions tagged with web-of-things on stackoverflow
-    const stackoverflowRes = await fetch(
-      `https://api.stackexchange.com/questions?site=stackoverflow&tagged=web-of-things`
-    );
-    const stackoverflowData = await stackoverflowRes.json();
-    this.stackoverflowQuestions = stackoverflowData.items.length;
-
-    // number of downloads of node-wot core package on npm last week
-    const npmCoreRes = await fetch(
-      `https://api.npmjs.org/versions/@node-wot%2Fcore/last-week`
-    );
-    const npmCoreData = await npmCoreRes.json();
-    this.numberOfDownloadsCore = Object.values(npmCoreData.downloads).reduce(
-      (a, b) => a + b
+    this.stackoverflowQuestions = await fetchStackoverflowQuestions(
+      "web-of-things"
     );
 
-    // number of downloads of node-wot Modbus package on npm last week
-    const npmModbusRes = await fetch(
-      `https://api.npmjs.org/versions/@node-wot%2Fbinding-modbus/last-week`
-    );
-    const npmModbusData = await npmModbusRes.json();
-    this.numberOfDownloadsModbus = Object.values(
-      npmModbusData.downloads
-    ).reduce((a, b) => a + b);
+    this.numberOfDownloadsCore = await fetchNpmDownloads("@node-wot", "core");
 
-    // number of downloads of node-wot Http package on npm last week
-    const npmHttpRes = await fetch(
-      `https://api.npmjs.org/versions/@node-wot%2Fbinding-http/last-week`
-    );
-    const npmHttpData = await npmHttpRes.json();
-    this.numberOfDownloadsHttp = Object.values(npmHttpData.downloads).reduce(
-      (a, b) => a + b
+    this.numberOfDownloadsModbus = await fetchNpmDownloads(
+      "@node-wot",
+      "binding-modbus"
     );
 
-    // number of repos on github with a web-of-things topic
-    const githubReposRes = await fetch(
-      `https://api.github.com/search/repositories?q=topic:web-of-things`
+    this.numberOfDownloadsHttp = await fetchNpmDownloads(
+      "@node-wot",
+      "binding-http"
     );
-    const githubReposData = await githubReposRes.json();
-    this.githubTopics = githubReposData.total_count;
 
-    // number of github stars on the w3c wot repo
-    const githubStarsRes = await fetch(`https://api.github.com/repos/w3c/wot`);
-    const githubStarsData = await githubStarsRes.json();
-    this.githubStars = githubStarsData.stargazers_count;
+    this.githubTopics = await fetchGithubRepos("web-of-things");
+
+    this.githubStars = await fetchGithubStars("w3c", "wot");
   }
 
   render() {

@@ -9,4 +9,4 @@ Displaying data and statistics about "Web of Things WoT" with a Lit component fr
     <script type="module" src="./stats.js"></script>
 ```
 
-![Stats](https://i.ibb.co/D76K50y/stats.png)
+![Stats](https://i.ibb.co/ggS31ch/stats.png)
