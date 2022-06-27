@@ -11,8 +11,6 @@ class Stats extends LitElement {
     numberOfDownloadsModbus: { type: Number },
     numberOfDownloadsHttp: { type: Number },
     githubStars: { type: Number },
-    redditMembers: { type: Number },
-    redditOnline: { type: Number },
   };
 
   async fetchStats() {
@@ -61,12 +59,6 @@ class Stats extends LitElement {
     const githubStarsRes = await fetch(`https://api.github.com/repos/w3c/wot`);
     const githubStarsData = await githubStarsRes.json();
     this.githubStars = githubStarsData.stargazers_count;
-
-    // number of members and current active members in the IOT subreddit
-    const redditRes = await fetch(`https://www.reddit.com/r/IOT/about.json`);
-    const redditData = await redditRes.json();
-    this.redditMembers = redditData.data.subscribers;
-    this.redditOnline = redditData.data.active_user_count;
   }
 
   render() {
@@ -76,9 +68,7 @@ class Stats extends LitElement {
       !this.numberOfDownloadsCore ||
       !this.numberOfDownloadsModbus ||
       !this.numberOfDownloadsHttp ||
-      !this.githubStars ||
-      !this.redditMembers ||
-      !this.redditOnline
+      !this.githubStars
     ) {
       return html`
         <p class="loading" @connected="${this.fetchStats()}">Loading...</p>
@@ -135,14 +125,7 @@ class Stats extends LitElement {
             alt="github icon"
           />
         </p>
-        <p>
-          <span>${this.redditMembers}</span> Members in the IOT Subreddit &
-          <span>${this.redditOnline}</span> Online
-          <img
-            src="https://www.vectorico.com/wp-content/uploads/2018/08/Reddit-logo-300x300.png"
-            alt="reddit icon"
-          />
-        </p>
+        <p></p>
       </div>
     `;
   }
