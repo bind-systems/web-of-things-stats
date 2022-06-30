@@ -20,3 +20,10 @@ The `stats.js` file contains the `fetchStats` function that calls these APIs and
 
 **Example**
 ![Stats Date and Time](https://i.ibb.co/0rfMNyM/dateandtag.png)
+
+**Setup Instructions**
+
+1. Place config file as in `config/default.json `
+2. Run a mongodb db locally (on the port specified in the config could be `27017`)
+3. `npm install` installation will fail if it doesnt meet the node & npm versions in engines package.json
+4. Start using the API endpoints as in `Api Usage`
