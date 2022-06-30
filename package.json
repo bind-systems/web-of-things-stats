@@ -1,0 +1,35 @@
+{
+  "name": "web-of-things-stats",
+  "version": "1.0.0",
+  "description": "Statistics for Web of Things",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bind-systems/web-of-things-stats.git"
+  },
+  "author": "LevwTech",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bind-systems/web-of-things-stats/issues"
+  },
+  "homepage": "https://github.com/bind-systems/web-of-things-stats#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "config": "^3.3.7",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.1",
+    "node-cron": "^3.0.1",
+    "nodemon": "^2.0.18",
+    "uuid": "^8.3.2"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  }
+}

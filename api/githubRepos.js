@@ -1,14 +1,16 @@
-const token = ""; // obtain from github
+const config = require("config");
+const axios = require("axios");
+const token = config.get("githubToken");
+
 const fetchGithubRepos = async (topic) => {
-  const res = await fetch(
+  const data = await axios.get(
     `https://api.github.com/search/repositories?q=topic:${topic}`,
     {
       headers: {
-        Authorization: token,
+        Authorization: `token ${token}`,
       },
     }
   );
-  const data = await res.json();
-  return data.total_count;
+  return data.data.total_count;
 };
-export default fetchGithubRepos;
+module.exports = fetchGithubRepos;

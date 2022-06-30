@@ -1,11 +1,13 @@
-const token = ""; // obtain from github
+const config = require("config");
+const axios = require("axios");
+const token = config.get("githubToken");
+
 const fetchGithubStars = async (user, repo) => {
-  const res = await fetch(`https://api.github.com/repos/${user}/${repo}`, {
+  const data = await axios.get(`https://api.github.com/repos/${user}/${repo}`, {
     headers: {
-      Authorization: token,
+      Authorization: `token ${token}`,
     },
   });
-  const data = await res.json();
-  return data.stargazers_count;
+  return data.data.stargazers_count;
 };
-export default fetchGithubStars;
+module.exports = fetchGithubStars;

@@ -1,9 +1,11 @@
-const token = ""; // obtain from stackexchange
+const config = require("config");
+const axios = require("axios");
+const token = config.get("stackexchangeToken");
+
 const fetchStackoverflowQuestions = async (tag) => {
-  const res = await fetch(
+  const data = await axios.get(
     `https://api.stackexchange.com/questions?site=stackoverflow&tagged=${tag}&key=${token}`
   );
-  const data = await res.json();
-  return data.items.length;
+  return data.data.items.length;
 };
-export default fetchStackoverflowQuestions;
+module.exports = fetchStackoverflowQuestions;
