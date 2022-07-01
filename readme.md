@@ -9,17 +9,14 @@ The `stats.js` file contains the `fetchStats` function that calls these APIs and
 **API Usage**
 `routers/stat.js`
 
-1. `http://[BASE]/stats/:tag`
-   This endpoint returns an array of all the statistics with a specific tag.
+1. `http://[BASE]/stats?from=[DATE]&to=[DATE]`
+   This endpoint returns an array of all the statistics from a starDate to an endDate. If `to` is not passed, it returns all the statistics from startDate to the current date.
 
-2. `http://[BASE]/stats/date/:date`
-   This endpoint returns an array of all the statistics from a specific date till now.
-
-3. `http://[BASE]/stats/:tag/:date`
-   This endpoint returns an array of all the statistics from a specific date till now with a specific tag.
+2. `http://[BASE]/stats/tag?from=[DATE]&to=[DATE]`
+   This endpoint returns an array of all the statistics with a specific tag from a startDate to an endDate. If `to` is not passed, it returns all the statistics with the passed tag from startDate to the current date.
 
 **Example**
-![Stats Date and Time](https://i.ibb.co/0rfMNyM/dateandtag.png)
+![Stats Tag and Date](https://i.ibb.co/KmS4y6S/stats.png)
 
 **Setup Instructions**
 
