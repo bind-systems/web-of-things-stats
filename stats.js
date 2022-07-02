@@ -20,7 +20,7 @@ const fetchStats = async () => {
     await saveStat(
       StackoverflowQuestionsTd,
       "stackoverflow",
-      "Questions on StackOverFlow tagged with 'web-of-things'"
+      "Questions on StackOverFlow tagged with 'thing-description'"
     );
 
     const githubReposWot = await fetchGithubRepos("web-of-things");

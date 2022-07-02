@@ -15,12 +15,20 @@ The `stats.js` file contains the `fetchStats` function that calls these APIs and
 2. `http://[BASE]/stats/tag?from=[DATE]&to=[DATE]`
    This endpoint returns an array of all the statistics with a specific tag from a startDate to an endDate. If `to` is not passed, it returns all the statistics with the passed tag from startDate to the current date. `skip` optional query parameter for pagination, by default is 0 and always returns 10 documents ascendingly with date.
 
+**Lit Component**
+components/stats.js
+
+Reusable lit component can be used directly in html pages or in markdown files.
+you have to serve the component example yourself.
+
 **Example**
 ![Stats Tag and Date](https://i.ibb.co/KmS4y6S/stats.png)
+![Lit Component Image 1](https://i.ibb.co/X3XgFjb/lit1.png)
+![Lit Component Image 2](https://i.ibb.co/DfkWQTS/lit2.png)
 
 **Setup Instructions**
 
 1. Place config file as in `config/default.json `
 2. Run a mongodb db locally (on the port specified in the config could be `27017`)
 3. `npm install` installation will fail if it doesnt meet the node & npm versions in engines package.json
-4. Start using the API endpoints as in `Api Usage`
+4. Serve the components/index.html on any port and start using it. Change url in stats.js on deployment to the server url.
