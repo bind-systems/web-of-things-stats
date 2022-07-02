@@ -10,10 +10,10 @@ The `stats.js` file contains the `fetchStats` function that calls these APIs and
 `routers/stat.js`
 
 1. `http://[BASE]/stats?from=[DATE]&to=[DATE]`
-   This endpoint returns an array of all the statistics from a starDate to an endDate. If `to` is not passed, it returns all the statistics from startDate to the current date.
+   This endpoint returns an array of all the statistics from a starDate to an endDate. If `to` is not passed, it returns all the statistics from startDate to the current date. `skip` optional query parameter for pagination, by default is 0 and always returns 10 documents.
 
 2. `http://[BASE]/stats/tag?from=[DATE]&to=[DATE]`
-   This endpoint returns an array of all the statistics with a specific tag from a startDate to an endDate. If `to` is not passed, it returns all the statistics with the passed tag from startDate to the current date.
+   This endpoint returns an array of all the statistics with a specific tag from a startDate to an endDate. If `to` is not passed, it returns all the statistics with the passed tag from startDate to the current date. `skip` optional query parameter for pagination, by default is 0 and always returns 10 documents.
 
 **Example**
 ![Stats Tag and Date](https://i.ibb.co/KmS4y6S/stats.png)
