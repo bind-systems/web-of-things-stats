@@ -24,8 +24,9 @@ You have to serve the component example yourself.
 **Example**
 ![Stats Tag and Date](https://i.ibb.co/brcBXS9/dateandtag.png)
 ![Lit Component Image 1](https://i.ibb.co/X3XgFjb/lit1.png)
-![Lit Component Image 2](https://i.ibb.co/DfkWQTS/lit2.png)
 ![Lit Component Chart](https://i.ibb.co/x2DtkYP/chart.png)
+![Lit Component Image 2](https://i.ibb.co/DfkWQTS/lit2.png)
+
 
 **Setup Instructions**
 
