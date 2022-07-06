@@ -18,13 +18,14 @@ The `stats.js` file contains the `fetchStats` function that calls these APIs and
 **Lit Component**
 components/stats.js
 
-Reusable lit component can be used directly in html pages or in markdown files.
-you have to serve the component example yourself.
+Reusable lit component can be used directly in html pages or in markdown files. Chart.js is used for the statistics chart.
+You have to serve the component example yourself.
 
 **Example**
 ![Stats Tag and Date](https://i.ibb.co/KmS4y6S/stats.png)
 ![Lit Component Image 1](https://i.ibb.co/X3XgFjb/lit1.png)
 ![Lit Component Image 2](https://i.ibb.co/DfkWQTS/lit2.png)
+![Lit Component Chart](https://i.ibb.co/x2DtkYP/chart.png)
 
 **Setup Instructions**
 
