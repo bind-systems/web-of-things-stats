@@ -113,7 +113,6 @@ class Stats extends LitElement {
   tagChangeHandler(e) {
     this.tag = e.target.value;
   }
-  firstUpdated() {}
 
   render() {
     return html`
