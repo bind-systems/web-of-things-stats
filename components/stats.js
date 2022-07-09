@@ -11,9 +11,6 @@ class Stats extends LitElement {
     stats: {
       type: Array,
     },
-    skip: {
-      type: Number,
-    },
     from: {
       type: String,
     },
@@ -24,84 +21,148 @@ class Stats extends LitElement {
       type: String,
     },
     myChart: { type: Object },
+    myCharts: { type: Array },
+    months: {
+      type: Array,
+    },
   };
 
   async fetchStats() {
+    this.months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    if (this.myCharts && this.myCharts.length) {
+      this.myCharts.forEach((chart) => {
+        chart.destroy();
+      });
+    }
+
     if (!this.tag) this.tag = "";
     if (!this.to) this.to = "";
     if (!this.from) this.from = new Date();
-    this.skip = 0;
     const res = await fetch(
       `${url}/stats${this.tag}?from=${this.from}${this.to}`
     );
     this.stats = await res.json();
-    const statsNumbers = [];
-    this.stats.forEach((stat) => statsNumbers.push(stat.data));
-    const names = [];
-    this.stats.forEach((stat) => names.push(stat.name));
-    this.renderChart(statsNumbers, names);
-  }
-  async fetchMore() {
-    this.skip += 5;
-    const res = await fetch(
-      `${url}/stats${this.tag}?from=${this.from}${this.to}&skip=${this.skip}`
-    );
-    const stats = await res.json();
-    this.stats = [...this.stats, ...stats];
 
-    const statsNumbers = [];
+    let commonNames = [];
     for (const stat of this.stats) {
-      statsNumbers.push(stat.data);
-      if (statsNumbers.length === 50) break;
+      commonNames.push(stat.name);
     }
-    const names = [];
+    commonNames = new Array(...new Set(commonNames));
 
-    for (const stat of this.stats) {
-      names.push(stat.name);
-      if (names.length === 50) break;
+    const newStats = [];
+    for (const commonName of commonNames) {
+      const commonStats = [];
+      for (const stat of this.stats) {
+        if (commonName === stat.name) commonStats.push(stat);
+      }
+      newStats.push(commonStats);
     }
-    this.renderChart(statsNumbers, names);
+
+    for (let i = 0; i < newStats.length; i += 3) {
+      const slicedStats = newStats.slice(i, i + 3);
+      const labels = [];
+      const data = [];
+      const legends = [];
+      slicedStats[0].forEach((stats) =>
+        labels.push(this.months[new Date(stats.createdAt).getMonth()])
+      );
+      slicedStats.forEach((stats) => {
+        legends.push(stats[0].name);
+        const dataset = [];
+        stats.forEach((stat) => {
+          dataset.push(stat.data);
+        });
+        data.push(dataset);
+      });
+      this.renderChart(labels, data, legends, i);
+    }
   }
-  renderChart(statsNumbers, names) {
+
+  renderChart(labels, data, legends, id) {
     if (!this.stats.length) return;
-    if (this.myChart) this.myChart.destroy();
-    const ctx = this.renderRoot.querySelector("#myChart").getContext("2d");
-    this.myChart = new Chart(ctx, {
-      type: "bar",
-      options: {
-        plugins: {
-          legend: {
-            display: false,
-          },
+    const ctx = this.renderRoot.querySelector(`#myChart${id}`).getContext("2d");
+    if (!this.myCharts) {
+      this.myCharts = [];
+    }
+    if (data.length === 3) {
+      this.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: legends[0],
+              data: data[0],
+              borderColor: "#FF6384",
+              backgroundColor: "#FF6384",
+            },
+            {
+              label: legends[1],
+              data: data[1],
+              borderColor: "#36A2EB",
+              backgroundColor: "#36A2EB",
+            },
+            {
+              label: legends[2],
+              data: data[2],
+              borderColor: "#32a86f",
+              backgroundColor: "#32a86f",
+            },
+          ],
         },
-      },
-      data: {
-        labels: names,
-        datasets: [
-          {
-            label: "",
-            data: statsNumbers,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255,99,132,1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          },
-        ],
-      },
-    });
+      });
+    } else if (data.length == 2) {
+      this.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: legends[0],
+              data: data[0],
+              borderColor: "#FF6384",
+              backgroundColor: "#FF6384",
+            },
+            {
+              label: legends[1],
+              data: data[1],
+              borderColor: "#36A2EB",
+              backgroundColor: "#36A2EB",
+            },
+          ],
+        },
+      });
+    } else {
+      this.myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: legends[0],
+              data: data[0],
+              borderColor: "#FF6384",
+              backgroundColor: "#FF6384",
+            },
+          ],
+        },
+      });
+    }
+    this.myCharts.push(this.myChart);
   }
 
   fromChangeHandler(e) {
@@ -131,18 +192,12 @@ class Stats extends LitElement {
         </select>
         <button @click=${this.fetchStats}>Get Statistics</button>
       </div>
+
       <div class="chart">
-        <canvas id="myChart"></canvas>
-      </div>
-      ${this.stats && this.stats.length
-        ? html`<button @click="${this.fetchMore}">MORE</button>`
-        : html`<div></div>`}
-      <ul>
-        ${this.stats &&
-        this.stats.map(
-          (stat) => html`<li><span>${stat.data}</span> ${stat.desc}</li>`
+        ${Array.from(Array(100).keys()).map(
+          (i) => html`<canvas id="myChart${i}"></canvas>`
         )}
-      </ul>
+      </div>
     `;
   }
   static styles = css`
@@ -150,6 +205,11 @@ class Stats extends LitElement {
   h1 {
     text-align: center;
   }
+  canvas {
+    display: none;
+    margin-top: 50px;
+  }
+
     div {
       font-family: 'ABeeZee', sans-serif;
       display: flex;
@@ -159,7 +219,8 @@ class Stats extends LitElement {
     }
     .chart {
     margin: auto;
-    width: 70%
+    width: 70%;
+    margin-bottom:50px;
     }
     @media (max-width: 900px) {
       .chart {

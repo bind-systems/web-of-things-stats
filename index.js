@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(statRouter);
 
-cron.schedule("*/168 * * * *", () => {
+cron.schedule("0 0 */14 * *", () => {
   fetchStats();
 });
 
