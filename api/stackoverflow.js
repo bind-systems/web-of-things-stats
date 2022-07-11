@@ -1,6 +1,5 @@
-const config = require("config");
 const axios = require("axios");
-const token = config.get("stackexchangeToken");
+const token = process.env.STACKEXCHANGE_TOKEN;
 
 const fetchStackoverflowQuestions = async (tag) => {
   const data = await axios.get(

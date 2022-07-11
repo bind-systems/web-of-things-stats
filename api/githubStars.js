@@ -1,6 +1,5 @@
-const config = require("config");
 const axios = require("axios");
-const token = config.get("githubToken");
+const token = process.env.GITHUB_TOKEN;
 
 const fetchGithubStars = async (user, repo) => {
   const data = await axios.get(`https://api.github.com/repos/${user}/${repo}`, {

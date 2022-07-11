@@ -1,7 +1,6 @@
-const config = require("config");
 const mongoose = require("mongoose");
 
-const mongodbUrl = config.get("mongodbUrl");
+const mongodbUrl = process.env.MONGODB_URL;
 mongoose.connect(mongodbUrl, {
   useNewUrlParser: true,
 });

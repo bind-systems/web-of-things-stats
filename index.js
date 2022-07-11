@@ -1,12 +1,11 @@
 require("./db/mongoose");
 const express = require("express");
 const cors = require("cors");
-const config = require("config");
 const cron = require("node-cron");
 const fetchStats = require("./stats");
 const statRouter = require("./routers/stat");
 
-const port = process.env.PORT || config.get("port");
+const port = process.env.PORT;
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(statRouter);
