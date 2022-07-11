@@ -28,7 +28,7 @@ You have to serve the component example yourself.
 
 **Setup Instructions**
 
-1. Place config file as in `config/default.json `
+1. Place config file as in `config/dev.env `
 2. Run a mongodb db locally (on the port specified in the config could be `27017`)
 3. `npm install` installation will fail if it doesnt meet the node & npm versions in engines package.json
 4. Serve the components/index.html on any port and start using it. Change url in stats.js on deployment to the server url.
