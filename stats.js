@@ -1,7 +1,6 @@
 const Stat = require("./models/stat");
-const fetchGithubRepos = require("./api/githubRepos");
-const fetchGithubStars = require("./api/githubStars");
-const { fetchNpmDownloads, fetchNpmDownloads2 } = require("./api/npm");
+const { fetchGithubRepos, fetchGithubStars } = require("./api/github");
+const fetchNpmDownloads = require("./api/npm");
 const fetchStackoverflowQuestions = require("./api/stackoverflow");
 
 const fetchStats = async () => {
@@ -211,7 +210,7 @@ const fetchStats = async () => {
       "Fujitsu Downloads"
     );
 
-    const npmDownloadsWotContribDiscovery = await fetchNpmDownloads2(
+    const npmDownloadsWotContribDiscovery = await fetchNpmDownloads(
       "node-red-contrib-wot-discovery"
     );
     await saveStat(
@@ -221,7 +220,7 @@ const fetchStats = async () => {
       "NodeRedWoTDiscovery Downloads"
     );
 
-    const npmDownloadsWotContribWot = await fetchNpmDownloads2(
+    const npmDownloadsWotContribWot = await fetchNpmDownloads(
       "node-red-contrib-web-of-things"
     );
     await saveStat(
@@ -231,7 +230,7 @@ const fetchStats = async () => {
       "NodeRedWoT Downloads"
     );
 
-    const npmDownloadsWotTestbench = await fetchNpmDownloads2("wot-testbench");
+    const npmDownloadsWotTestbench = await fetchNpmDownloads("wot-testbench");
     await saveStat(
       npmDownloadsWotTestbench,
       "npm",
@@ -239,7 +238,7 @@ const fetchStats = async () => {
       "Testbench Downloads"
     );
 
-    const npmDownloadsWotModeltypes = await fetchNpmDownloads2(
+    const npmDownloadsWotModeltypes = await fetchNpmDownloads(
       "wot-thing-model-types"
     );
     await saveStat(
@@ -249,7 +248,7 @@ const fetchStats = async () => {
       "ThingModelTypes Downloads"
     );
 
-    const npmDownloadsWotDesctypes = await fetchNpmDownloads2(
+    const npmDownloadsWotDesctypes = await fetchNpmDownloads(
       "wot-thing-description-types"
     );
     await saveStat(
@@ -259,7 +258,7 @@ const fetchStats = async () => {
       "ThingDescriptionTypes Downloads"
     );
 
-    const npmDownloadsWotTsdefinitions = await fetchNpmDownloads2(
+    const npmDownloadsWotTsdefinitions = await fetchNpmDownloads(
       "wot-typescript-definitions"
     );
     await saveStat(
@@ -269,7 +268,7 @@ const fetchStats = async () => {
       "Typescript Defs Downloads"
     );
 
-    const npmDownloadsNodegen = await fetchNpmDownloads2("node-red-nodegen");
+    const npmDownloadsNodegen = await fetchNpmDownloads("node-red-nodegen");
     await saveStat(
       npmDownloadsNodegen,
       "npm",

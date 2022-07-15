@@ -1,19 +1,20 @@
 const axios = require("axios");
+const BASE = "https://api.npmjs.org/versions";
 
-const fetchNpmDownloads = async (package1, package2) => {
-  const data = await axios.get(
-    `https://api.npmjs.org/versions/${package1}%2F${package2}/last-week`
-  );
-  if (!Object.values(data.data.downloads).length) return 0;
-  return Object.values(data.data.downloads).reduce((a, b) => a + b);
+const fetchNpmDownloads = async (package, innerPackage) => {
+  if (innerPackage) {
+    const data = await axios.get(
+      `${BASE}/${package}%2F${innerPackage}/last-week`
+    );
+    return getNumberOfDownloads(data.data.downloads);
+  }
+  const data = await axios.get(`${BASE}/${package}/last-week`);
+  return getNumberOfDownloads(data.data.downloads);
 };
 
-const fetchNpmDownloads2 = async (package) => {
-  const data = await axios.get(
-    `https://api.npmjs.org/versions/${package}/last-week`
-  );
-  if (!Object.values(data.data.downloads).length) return 0;
-  return Object.values(data.data.downloads).reduce((a, b) => a + b);
+const getNumberOfDownloads = (data) => {
+  if (!Object.values(data).length) return 0;
+  return Object.values(data).reduce((a, b) => a + b);
 };
 
-module.exports = { fetchNpmDownloads, fetchNpmDownloads2 };
+module.exports = fetchNpmDownloads;
