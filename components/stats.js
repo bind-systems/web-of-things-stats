@@ -4,7 +4,7 @@ import {
   LitElement,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 import "https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js";
-const url = "http://localhost:3000";
+const url = `http://${location.hostname}:3000`;
 
 class Stats extends LitElement {
   static properties = {
