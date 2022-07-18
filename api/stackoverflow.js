@@ -1,13 +1,13 @@
 const axios = require("axios");
 const Api = require("./api");
 const BASE = "https://api.stackexchange.com";
-const stackexhangeToken = process.env.STACKEXCHANGE_TOKEN;
+const token = process.env.STACKEXCHANGE_TOKEN;
 
 class StackoverflowApi extends Api {
   statTag = this.tags.stackoverflow;
   async fetchStackoverflowQuestions(tag) {
     const data = await axios.get(
-      `${BASE}/questions?site=stackoverflow&tagged=${tag}&key=${stackexhangeToken}`
+      `${BASE}/questions?site=stackoverflow&tagged=${tag}&key=${token}`
     );
     const statData = data.data.items.length;
     const statDesc = `Questions on StackOverFlow tagged with '${tag}'`;

@@ -1,10 +1,10 @@
 const axios = require("axios");
 const Api = require("./api");
 const BASE = "https://api.github.com";
-const githubToken = process.env.GITHUB_TOKEN;
+const token = process.env.GITHUB_TOKEN;
 const headers = {
   headers: {
-    Authorization: `token ${githubToken}`,
+    Authorization: `token ${token}`,
   },
 };
 
