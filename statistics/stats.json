@@ -1,0 +1,40 @@
+{
+  "stackoverflowQuestions": ["web-of-things", "thing-description"],
+  "githubRepos": ["web-of-things"],
+  "githubStars": [
+    ["w3c", "wot"],
+    ["eclipse", "editdor"],
+    ["oeg-upm", "wot-jtd"],
+    ["oeg-upm", "wot-hive"],
+    ["UniBO-PRISMLab", "wam"],
+    ["namib-project", "dart_wot"],
+    ["w3c", "wot-thing-description"],
+    ["w3c", "wot-architecture"],
+    ["w3c", "wot-scripting-api"]
+  ],
+  "npmDownloads": [
+    ["@node-wot", "core"],
+    ["@node-wot", "binding-modbus"],
+    ["@node-wot", "binding-http"],
+    ["@node-wot", "binding-firestore"],
+    ["@node-wot", "binding-file"],
+    ["@node-wot", "binding-mbus"],
+    ["@node-wot", "td-tools"],
+    ["@node-wot", "binding-mqtt"],
+    ["@node-wot", "binding-coap"],
+    ["@node-wot", "cli"],
+    ["@node-wot", "binding-opcua"],
+    ["@node-wot", "browser-bundle"],
+    ["@node-wot", "binding-websockets"],
+    ["@node-wot", "binding-netconf"],
+    ["@node-wot", "binding-oracle"],
+    ["@node-wot", "binding-fujitsu"],
+    ["wot-testbench"],
+    ["node-red-contrib-wot-discovery"],
+    ["node-red-contrib-web-of-things"],
+    ["wot-thing-model-types"],
+    ["wot-thing-description-types"],
+    ["wot-typescript-definitions"],
+    ["node-red-nodegen"]
+  ]
+}

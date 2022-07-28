@@ -2,7 +2,7 @@ require("./db/mongoose");
 const express = require("express");
 const cors = require("cors");
 const cron = require("node-cron");
-const fetchStats = require("./stats");
+const fetchStats = require("./statistics/stats");
 const statRouter = require("./routers/stat");
 
 const port = process.env.PORT;
