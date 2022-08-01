@@ -17,6 +17,11 @@ const StatSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    selectors: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true, toJSON: { virtuals: true } } // adds createdAt and updatedAt fields
 );

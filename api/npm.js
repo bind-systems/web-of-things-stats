@@ -9,7 +9,7 @@ class NpmApi extends Api {
     return Object.values(data).reduce((a, b) => a + b);
   }
 
-  async fetchNpmDownloads(npmPackage, innerPackage) {
+  async fetchNpmDownloads(npmPackage, selectors, innerPackage) {
     let statData, statDesc, statName;
     if (innerPackage) {
       const data = await axios.get(
@@ -24,7 +24,7 @@ class NpmApi extends Api {
       statDesc = `Downloads of ${npmPackage} package the previous week`;
       statName = `${npmPackage} Downloads`;
     }
-    await this.saveStat(statData, this.statTag, statDesc, statName);
+    await this.saveStat(statData, this.statTag, statDesc, statName, selectors);
   }
 }
 const npmApi = new NpmApi();

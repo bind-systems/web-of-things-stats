@@ -5,19 +5,19 @@ const statistics = require("./stats.json");
 
 const fetchStats = async () => {
   try {
-    for (const topic of statistics.stackoverflowQuestions)
-      await stackoverflowApi.fetchStackoverflowQuestions(topic);
+    for (const { tag, selectors } of statistics.stackoverflowQuestions)
+      await stackoverflowApi.fetchStackoverflowQuestions(tag, selectors);
 
-    for (const topic of statistics.githubRepos)
-      await githubApi.fetchGithubRepos(topic);
+    for (const { topic, selectors } of statistics.githubRepos)
+      await githubApi.fetchGithubRepos(topic, selectors);
 
-    for (const [userOrOrganization, repo] of statistics.githubStars)
-      await githubApi.fetchGithubStars(userOrOrganization, repo);
+    for (const { repo, selectors } of statistics.githubStars)
+      await githubApi.fetchGithubStars(repo[0], repo[1], selectors);
 
-    for (const [package, innerPackage] of statistics.npmDownloads) {
-      innerPackage
-        ? await npmApi.fetchNpmDownloads(package, innerPackage)
-        : await npmApi.fetchNpmDownloads(package);
+    for (const { package, selectors } of statistics.npmDownloads) {
+      package[1]
+        ? await npmApi.fetchNpmDownloads(package[0], selectors, package[1])
+        : await npmApi.fetchNpmDownloads(package[0], selectors);
     }
   } catch (e) {
     console.log(e);

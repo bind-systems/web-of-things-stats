@@ -10,7 +10,7 @@ const headers = {
 
 class GithubApi extends Api {
   statTag = this.tags.github;
-  async fetchGithubRepos(topic) {
+  async fetchGithubRepos(topic, selectors) {
     const data = await axios.get(
       `${BASE}/search/repositories?q=topic:${topic}`,
       headers
@@ -18,15 +18,15 @@ class GithubApi extends Api {
     const statData = data.data.total_count;
     const statDesc = `Repos on Github with the topic '${topic}'`;
     const statName = `${topic} Repos`;
-    await this.saveStat(statData, this.statTag, statDesc, statName);
+    await this.saveStat(statData, this.statTag, statDesc, statName, selectors);
   }
 
-  async fetchGithubStars(user, repo) {
+  async fetchGithubStars(user, repo, selectors) {
     const data = await axios.get(`${BASE}/repos/${user}/${repo}`, headers);
     const statData = data.data.stargazers_count;
     const statDesc = `Stars on ${user}/${repo} repo on Github`;
     const statName = `${repo} stars`;
-    await this.saveStat(statData, this.statTag, statDesc, statName);
+    await this.saveStat(statData, this.statTag, statDesc, statName, selectors);
   }
 }
 const githubApi = new GithubApi();

@@ -1,40 +1,139 @@
 {
-  "stackoverflowQuestions": ["web-of-things", "thing-description"],
-  "githubRepos": ["web-of-things"],
-  "githubStars": [
-    ["w3c", "wot"],
-    ["eclipse", "editdor"],
-    ["oeg-upm", "wot-jtd"],
-    ["oeg-upm", "wot-hive"],
-    ["UniBO-PRISMLab", "wam"],
-    ["namib-project", "dart_wot"],
-    ["w3c", "wot-thing-description"],
-    ["w3c", "wot-architecture"],
-    ["w3c", "wot-scripting-api"]
+  "stackoverflowQuestions": [
+    { "tag": "web-of-things", "selectors": [] },
+    { "tag": "thing-description", "selectors": [] }
   ],
+  "_Comment_Github_Selectors": ["JS/TS", "Python", "Java", "C/C++"],
+  "githubRepos": [{ "topic": "web-of-things", "selectors": [] }],
+  "githubStars": [
+    { "repo": ["eclipse", "editdor"], "selectors": ["JS/TS"] },
+    { "repo": ["oeg-upm", "wot-jtd"], "selectors": ["Java"] },
+    { "repo": ["oeg-upm", "wot-hive"], "selectors": ["JS/ts"] },
+    { "repo": ["UniBO-PRISMLab", "wam"], "selectors": ["JS/TS"] },
+    { "repo": ["namib-project", "dart_wot"], "selectors": [] },
+    { "repo": ["tum-esi", "wade"], "selectors": ["JS/TS"] },
+    { "repo": ["UniBO-PRISMLab", "c3po"], "selectors": ["JS/TS"] },
+    { "repo": ["UniBO-PRISMLab", "wot-configurator"], "selectors": ["JS/TS"] },
+    { "repo": ["UniBO-PRISMLab", "micro-wot-servient"], "selectors": [] },
+    { "repo": ["sane-city", "wot-servient"], "selectors": ["Java"] },
+    { "repo": ["namib-project", "wot-nodes"], "selectors": ["C/C++"] },
+    { "repo": ["arces-wot", "SEPA"], "selectors": ["Java"] },
+    { "repo": ["JKRhb", "sdf-wot-converter-py"], "selectors": ["Python"] },
+    { "repo": ["JKRhb", "sdf-wot-converter"], "selectors": [] },
+    { "repo": ["agmangas", "wot-py"], "selectors": ["Python"] },
+    { "repo": ["linksmart", "thing-directory"], "selectors": [] },
+    { "repo": ["tum-esi", "shadow-thing"], "selectors": ["JS/TS"] },
+    { "repo": ["tum-esi", "testbench"], "selectors": ["JS/TS"] },
+    { "repo": ["hidaris", "thingtalk"], "selectors": ["Python"] },
+    { "repo": ["lmy441900", "tinywot"], "selectors": ["C/C++"] },
+    {
+      "repo": ["meticulousCraftman", "awesome-web-of-things"],
+      "selectors": []
+    },
+    { "repo": ["lillo42", "webthing-csharp"], "selectors": ["C#"] },
+    { "repo": ["makhshari", "StressThing"], "selectors": ["JS/TS"] },
+    { "repo": ["fr4ncidir", "SemanticWoT"], "selectors": ["Python"] },
+    { "repo": ["arces-wot", "td-code"], "selectors": ["JS/TS"] },
+
+    { "repo": ["w3c", "wot"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-thing-description"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-architecture"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-scripting-api"], "selectors": [] },
+    { "repo": ["w3c", "wot-marketing"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-discovery"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-testing"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-profile"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-jp-cg"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-cg"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-binding-templates"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-usecases"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-tools"], "selectors": ["W3C"] },
+    {
+      "repo": ["w3c", "wot-security-best-practices"],
+      "selectors": ["W3C"]
+    },
+    { "repo": ["w3c", "wot-security-testing-plan"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-ejs"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wot-security"], "selectors": ["W3C"] },
+    { "repo": ["w3c", "wotwg"], "selectors": ["W3C"] }
+  ],
+  "_Comment_Npm_Selectors": ["node-wot", "thing-description"],
   "npmDownloads": [
-    ["@node-wot", "core"],
-    ["@node-wot", "binding-modbus"],
-    ["@node-wot", "binding-http"],
-    ["@node-wot", "binding-firestore"],
-    ["@node-wot", "binding-file"],
-    ["@node-wot", "binding-mbus"],
-    ["@node-wot", "td-tools"],
-    ["@node-wot", "binding-mqtt"],
-    ["@node-wot", "binding-coap"],
-    ["@node-wot", "cli"],
-    ["@node-wot", "binding-opcua"],
-    ["@node-wot", "browser-bundle"],
-    ["@node-wot", "binding-websockets"],
-    ["@node-wot", "binding-netconf"],
-    ["@node-wot", "binding-oracle"],
-    ["@node-wot", "binding-fujitsu"],
-    ["wot-testbench"],
-    ["node-red-contrib-wot-discovery"],
-    ["node-red-contrib-web-of-things"],
-    ["wot-thing-model-types"],
-    ["wot-thing-description-types"],
-    ["wot-typescript-definitions"],
-    ["node-red-nodegen"]
+    { "package": ["@node-wot", "core"], "selectors": ["node-wot"] },
+    {
+      "package": ["@node-wot", "binding-modbus"],
+      "selectors": ["node-wot"]
+    },
+    { "package": ["@node-wot", "binding-http"], "selectors": ["node-wot"] },
+    {
+      "package": ["@node-wot", "binding-firestore"],
+      "selectors": ["node-wot"]
+    },
+    { "package": ["@node-wot", "binding-file"], "selectors": ["node-wot"] },
+    { "package": ["@node-wot", "binding-mbus"], "selectors": ["node-wot"] },
+    { "package": ["@node-wot", "td-tools"], "selectors": ["node-wot"] },
+    { "package": ["@node-wot", "binding-mqtt"], "selectors": ["node-wot"] },
+    { "package": ["@node-wot", "binding-coap"], "selectors": ["node-wot"] },
+    { "package": ["@node-wot", "cli"], "selectors": ["node-wot"] },
+    {
+      "package": ["@node-wot", "binding-opcua"],
+      "selectors": ["node-wot"]
+    },
+    {
+      "package": ["@node-wot", "browser-bundle"],
+      "selectors": ["node-wot"]
+    },
+    {
+      "package": ["@node-wot", "binding-websockets"],
+      "selectors": ["node-wot"]
+    },
+    {
+      "package": ["@node-wot", "binding-netconf"],
+      "selectors": ["node-wot"]
+    },
+    {
+      "package": ["@node-wot", "binding-oracle"],
+      "selectors": ["node-wot"]
+    },
+    {
+      "package": ["@node-wot", "binding-fujitsu"],
+      "selectors": ["node-wot"]
+    },
+    { "package": ["@hidetak", "binding-wotfirestore"], "selectors": [] },
+    {
+      "package": ["@thing-description-playground", "web"],
+      "selectors": ["thing-description-playground"]
+    },
+    {
+      "package": ["@thing-description-playground", "td_to_openapi"],
+      "selectors": ["thing-description-playground"]
+    },
+    {
+      "package": ["@thing-description-playground", "defaults"],
+      "selectors": ["thing-description-playground"]
+    },
+    {
+      "package": ["@thing-description-playground", "td_to_asyncapi"],
+      "selectors": ["thing-description-playground"]
+    },
+    {
+      "package": ["@thing-description-playground", "assertions"],
+      "selectors": ["thing-description-playground"]
+    },
+    {
+      "package": ["@thing-description-playground", "cli"],
+      "selectors": ["thing-description-playground"]
+    },
+    {
+      "package": ["@thing-description-playground", "core"],
+      "selectors": ["thing-description-playground"]
+    },
+    { "package": ["node-red-contrib-wot-discovery"], "selectors": [] },
+    { "package": ["node-red-contrib-web-of-things"], "selectors": [] },
+    { "package": ["wot-testbench"], "selectors": [] },
+    { "package": ["wot-thing-model-types"], "selectors": [] },
+    { "package": ["wot-thing-description-types"], "selectors": [] },
+    { "package": ["wot-typescript-definitions"], "selectors": [] },
+    { "package": ["node-red-nodegen"], "selectors": [] }
   ]
 }
