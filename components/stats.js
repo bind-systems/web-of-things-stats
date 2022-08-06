@@ -25,6 +25,18 @@ class Stats extends LitElement {
     months: {
       type: Array,
     },
+    githubSelectors: {
+      type: Array,
+    },
+    npmSelectors: {
+      type: Array,
+    },
+    githubFlag: {
+      type: Boolean,
+    },
+    npmFlag: {
+      type: Boolean,
+    },
   };
 
   async fetchStats() {
@@ -42,7 +54,9 @@ class Stats extends LitElement {
       "November",
       "December",
     ];
-
+    this.githubSelectors = ["JS/TS", "Python", "Java", "C/C++"];
+    this.npmSelectors = ["node-wot", "thing-description-playground"];
+    this.githubFlag = this.npmFlag = false;
     if (this.myCharts && this.myCharts.length) {
       this.myCharts.forEach((chart) => {
         chart.destroy();
@@ -88,6 +102,8 @@ class Stats extends LitElement {
         });
         data.push(dataset);
       });
+      if (this.tag === "/npm") this.npmFlag = true;
+      if (this.tag === "/github") this.githubFlag = true;
       this.renderChart(labels, data, legends, i);
     }
   }
@@ -172,7 +188,58 @@ class Stats extends LitElement {
     this.to = `&to=${e.target.value}`;
   }
   tagChangeHandler(e) {
+    this.githubFlag = this.npmFlag = false;
     this.tag = e.target.value;
+  }
+  async onClickSelectorTabHandler(e) {
+    const tablinks = this.shadowRoot.querySelectorAll(".tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    e.currentTarget.className += " active";
+
+    let value = e.target.value;
+    if (this.myCharts && this.myCharts.length) {
+      this.myCharts.forEach((chart) => {
+        chart.destroy();
+      });
+    }
+    const selectedStats = this.stats.filter((stat) =>
+      stat.selectors.includes(e.target.value)
+    );
+    let commonNames = [];
+    for (const stat of selectedStats) {
+      commonNames.push(stat.name);
+    }
+    commonNames = new Array(...new Set(commonNames));
+    const newStats = [];
+    for (const commonName of commonNames) {
+      const commonStats = [];
+      for (const stat of selectedStats) {
+        if (commonName === stat.name) commonStats.push(stat);
+      }
+      newStats.push(commonStats);
+    }
+    for (let i = 0; i < newStats.length; i += 3) {
+      const slicedStats = newStats.slice(i, i + 3);
+      const labels = [];
+      const data = [];
+      const legends = [];
+      slicedStats[0].forEach((stats) =>
+        labels.push(this.months[new Date(stats.createdAt).getMonth()])
+      );
+      slicedStats.forEach((stats) => {
+        legends.push(stats[0].name);
+        const dataset = [];
+        stats.forEach((stat) => {
+          dataset.push(stat.data);
+        });
+        data.push(dataset);
+      });
+      if (this.tag === "/npm") this.npmFlag = true;
+      if (this.tag === "/github") this.githubFlag = true;
+      this.renderChart(labels, data, legends, i);
+    }
   }
 
   render() {
@@ -190,7 +257,35 @@ class Stats extends LitElement {
           <option value="/github">Github</option>
           <option value="/stackoverflow">Stackoverflow</option>
         </select>
-        <button @click=${this.fetchStats}>Get Statistics</button>
+        <button class="submit" @click=${this.fetchStats}>Get Statistics</button>
+        ${this.githubFlag
+          ? html`<p class="tab">
+              ${this.githubSelectors.map(
+                (selector) =>
+                  html`<button
+                    class="tablinks"
+                    value=${selector}
+                    @click=${this.onClickSelectorTabHandler}
+                  >
+                    ${selector}
+                  </button>`
+              )}
+            </p>`
+          : html`<div></div>`}
+        ${this.npmFlag
+          ? html`<p class="tab">
+              ${this.npmSelectors.map(
+                (selector) =>
+                  html`<button
+                    value=${selector}
+                    class="tablinks"
+                    @click=${this.onClickSelectorTabHandler}
+                  >
+                    ${selector}
+                  </button>`
+              )}
+            </p>`
+          : html`<div></div>`}
       </div>
 
       <div class="chart">
@@ -201,45 +296,45 @@ class Stats extends LitElement {
     `;
   }
   static styles = css`
-  @import url('https://fonts.googleapis.com/css2?family=ABeeZee&display=swap');
-  h1 {
-    text-align: center;
-  }
-  canvas {
-    display: none;
-    margin-top: 50px;
-  }
+    @import url("https://fonts.googleapis.com/css2?family=ABeeZee&display=swap");
+    h1 {
+      text-align: center;
+    }
+    canvas {
+      display: none;
+      margin-top: 50px;
+    }
 
     div {
-      font-family: 'ABeeZee', sans-serif;
+      font-family: "ABeeZee", sans-serif;
       display: flex;
       flex-flow: column wrap;
-      justify-content:center;
-      align-items:center;
+      justify-content: center;
+      align-items: center;
     }
     .chart {
-    margin: auto;
-    width: 70%;
-    margin-bottom:50px;
+      margin: auto;
+      width: 70%;
+      margin-bottom: 50px;
     }
     @media (max-width: 900px) {
       .chart {
         margin: auto;
-        width: 100%
-        }
+        width: 100%;
+      }
     }
     input {
       width: 60%;
-      height: 30px
+      height: 30px;
     }
     select {
       width: 60.5%;
-      height: 35px
+      height: 35px;
     }
     label {
-      margin:5px;
+      margin: 5px;
     }
-    button {
+    .submit {
       width: 100px;
       display: flex;
       justify-content: center;
@@ -252,31 +347,50 @@ class Stats extends LitElement {
       border-radius: 3px;
       border: none;
     }
-      button:hover {
-        background-color: #203964;
-      }
-      ul {
-        display: flex;
-        flex-flow: column wrap;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        width: 95%;
-        margin: auto;
-      }
-      li {
-        background: #fff;
-        color: #333;
-        text-shadow: none;
-        padding: 1rem;
-        border-radius: 3px;
-        box-shadow: -1px 2px 2px -2px rgb(0, 0, 0.43);
-        font-family: "Roboto Mono", monospace;
-        margin-top: 1rem;
-      }
-       li span {
-        color: #203964;
-       }
+    .submit:hover {
+      background-color: #203964;
+    }
+    ul {
+      display: flex;
+      flex-flow: column wrap;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 95%;
+      margin: auto;
+    }
+    li {
+      background: #fff;
+      color: #333;
+      text-shadow: none;
+      padding: 1rem;
+      border-radius: 3px;
+      box-shadow: -1px 2px 2px -2px rgb(0, 0, 0.43);
+      font-family: "Roboto Mono", monospace;
+      margin-top: 1rem;
+    }
+    li span {
+      color: #203964;
+    }
+    .tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
+    .tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+    }
+    .tab button:hover {
+      background-color: #ddd;
+    }
+    .tab button.active {
+      background-color: #ccc;
     }
   `;
 }

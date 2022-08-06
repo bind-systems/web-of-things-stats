@@ -57,7 +57,7 @@
     { "repo": ["w3c", "wot-security"], "selectors": ["W3C"] },
     { "repo": ["w3c", "wotwg"], "selectors": ["W3C"] }
   ],
-  "_Comment_Npm_Selectors": ["node-wot", "thing-description"],
+  "_Comment_Npm_Selectors": ["node-wot", "thing-description-playground"],
   "npmDownloads": [
     { "package": ["@node-wot", "core"], "selectors": ["node-wot"] },
     {
@@ -122,10 +122,6 @@
     },
     {
       "package": ["@thing-description-playground", "cli"],
-      "selectors": ["thing-description-playground"]
-    },
-    {
-      "package": ["@thing-description-playground", "core"],
       "selectors": ["thing-description-playground"]
     },
     { "package": ["node-red-contrib-wot-discovery"], "selectors": [] },
