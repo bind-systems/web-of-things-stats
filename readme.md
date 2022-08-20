@@ -23,8 +23,7 @@ You have to serve the component example yourself.
 
 **Example**
 ![Stats Tag and Date](https://i.ibb.co/brcBXS9/dateandtag.png)
-![Lit Component Form](https://i.ibb.co/X3XgFjb/lit1.png)
-![Lit Component Chart](https://i.ibb.co/LQKKK6N/chart.png)
+![Lit Component](https://i.ibb.co/D5SrqBb/chart.png)
 
 **Setup Instructions**
 

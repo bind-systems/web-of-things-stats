@@ -4,6 +4,7 @@ import {
   LitElement,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 import "https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js";
+
 const url = `http://${location.hostname}:3000`;
 
 class Stats extends LitElement {
@@ -140,6 +141,24 @@ class Stats extends LitElement {
             },
           ],
         },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                color: "#ADBAC7",
+              },
+            },
+          },
+          responsive: true,
+          scales: {
+            y: {
+              ticks: { color: "#ADBAC7", beginAtZero: true },
+            },
+            x: {
+              ticks: { color: "#ADBAC7", beginAtZero: true },
+            },
+          },
+        },
       });
     } else if (data.length == 2) {
       this.myChart = new Chart(ctx, {
@@ -161,6 +180,24 @@ class Stats extends LitElement {
             },
           ],
         },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                color: "#ADBAC7",
+              },
+            },
+          },
+          responsive: true,
+          scales: {
+            y: {
+              ticks: { color: "#ADBAC7", beginAtZero: true },
+            },
+            x: {
+              ticks: { color: "#ADBAC7", beginAtZero: true },
+            },
+          },
+        },
       });
     } else {
       this.myChart = new Chart(ctx, {
@@ -175,6 +212,24 @@ class Stats extends LitElement {
               backgroundColor: "#FF6384",
             },
           ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                color: "#ADBAC7",
+              },
+            },
+          },
+          responsive: true,
+          scales: {
+            y: {
+              ticks: { color: "#ADBAC7", beginAtZero: true },
+            },
+            x: {
+              ticks: { color: "#ADBAC7", beginAtZero: true },
+            },
+          },
         },
       });
     }
@@ -198,7 +253,6 @@ class Stats extends LitElement {
     }
     e.currentTarget.className += " active";
 
-    let value = e.target.value;
     if (this.myCharts && this.myCharts.length) {
       this.myCharts.forEach((chart) => {
         chart.destroy();
@@ -244,51 +298,84 @@ class Stats extends LitElement {
 
   render() {
     return html`
-      <div>
-        <h1>Web of Things Statistics</h1>
-        <label for="from">From</label>
-        <input id="from" type="date" @change=${this.fromChangeHandler} />
-        <label for="to">To</label>
-        <input id="to" type="date" @change=${this.toChangeHandler} />
-        <label for="tag">Tag</label>
-        <select id="tag" @change=${this.tagChangeHandler}>
-          <option value="">All</option>
-          <option value="/npm">Npm</option>
-          <option value="/github">Github</option>
-          <option value="/stackoverflow">Stackoverflow</option>
-        </select>
-        <button class="submit" @click=${this.fetchStats}>Get Statistics</button>
-        ${this.githubFlag
-          ? html`<p class="tab">
-              ${this.githubSelectors.map(
-                (selector) =>
-                  html`<button
-                    class="tablinks"
-                    value=${selector}
-                    @click=${this.onClickSelectorTabHandler}
-                  >
-                    ${selector}
-                  </button>`
-              )}
-            </p>`
-          : html`<div></div>`}
-        ${this.npmFlag
-          ? html`<p class="tab">
-              ${this.npmSelectors.map(
-                (selector) =>
-                  html`<button
-                    value=${selector}
-                    class="tablinks"
-                    @click=${this.onClickSelectorTabHandler}
-                  >
-                    ${selector}
-                  </button>`
-              )}
-            </p>`
-          : html`<div></div>`}
+      <link
+        href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css"
+        rel="stylesheet"
+      />
+      <div class="container">
+        <h1 class="h1" style="margin-top: 20px">Web of Things Statistics</h1
+        >
+        <div class="form">
+        <label for="from" class="h5">From   <input
+        placeholder="Standard input"
+          class="form-control"
+          id="from"
+          type="date"
+          @change=${this.fromChangeHandler}
+        /></label>
+        <label for="to" class="h5">To  <input
+        class="form-control"
+        id="to"
+        type="date"
+        @change=${this.toChangeHandler}
+      /></label>
+       
+        <label for="tag" class="h5">Tag   <select class="form-select id="tag" @change=${
+          this.tagChangeHandler
+        }>
+        <option value="">All</option>
+        <option value="/npm">Npm</option>
+        <option value="/github">Github</option>
+        <option value="/stackoverflow">Stackoverflow</option>
+      </select></label>
+        </div>
+      
+
+      
+        <button class="btn btn-primary" style="margin-top: 10px;" @click=${
+          this.fetchStats
+        }>Get Statistics</button>
+        ${
+          this.githubFlag
+            ? html`<p
+                class="Header color-shadow-medium"
+                style="margin-top: 10px; margin-bottom:-20px;"
+              >
+                ${this.githubSelectors.map(
+                  (selector) =>
+                    html`<button
+                      class="Header-item Header-link"
+                      value=${selector}
+                      @click=${this.onClickSelectorTabHandler}
+                    >
+                      ${selector}
+                    </button>`
+                )}
+              </p>`
+            : html`<div></div>`
+        }
+        ${
+          this.npmFlag
+            ? html`<p
+                class="Header color-shadow-medium"
+                style="margin-top: 10px; margin-bottom:-20px;"
+              >
+                ${this.npmSelectors.map(
+                  (selector) =>
+                    html`<button
+                      value=${selector}
+                      class="Header-item Header-link"
+                      @click=${this.onClickSelectorTabHandler}
+                    >
+                      ${selector}
+                    </button>`
+                )}
+              </p>`
+            : html`<div></div>`
+        }
       </div>
 
-      <div class="chart">
+      <div class="container chart">
         ${Array.from(Array(100).keys()).map(
           (i) => html`<canvas id="myChart${i}"></canvas>`
         )}
@@ -297,20 +384,46 @@ class Stats extends LitElement {
   }
   static styles = css`
     @import url("https://fonts.googleapis.com/css2?family=ABeeZee&display=swap");
-    h1 {
-      text-align: center;
+    button,
+    input[type="submit"],
+    input[type="reset"] {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
     }
+
     canvas {
       display: none;
       margin-top: 50px;
     }
 
-    div {
+    .container {
       font-family: "ABeeZee", sans-serif;
       display: flex;
       flex-flow: column wrap;
       justify-content: center;
       align-items: center;
+    }
+    .form {
+      display: flex;
+      flex-flow: column wrap;
+      width: 50%;
+    }
+
+    label,
+    input,
+    select {
+      margin: 5px;
+    }
+
+    .form input,
+    .form label,
+    .form select {
+      width: 100%;
     }
     .chart {
       margin: auto;
@@ -322,75 +435,6 @@ class Stats extends LitElement {
         margin: auto;
         width: 100%;
       }
-    }
-    input {
-      width: 60%;
-      height: 30px;
-    }
-    select {
-      width: 60.5%;
-      height: 35px;
-    }
-    label {
-      margin: 5px;
-    }
-    .submit {
-      width: 100px;
-      display: flex;
-      justify-content: center;
-      margin: auto;
-      margin-top: 1rem;
-      padding: 0.7rem;
-      font-weight: bold;
-      color: white;
-      background-color: #32589a;
-      border-radius: 3px;
-      border: none;
-    }
-    .submit:hover {
-      background-color: #203964;
-    }
-    ul {
-      display: flex;
-      flex-flow: column wrap;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 95%;
-      margin: auto;
-    }
-    li {
-      background: #fff;
-      color: #333;
-      text-shadow: none;
-      padding: 1rem;
-      border-radius: 3px;
-      box-shadow: -1px 2px 2px -2px rgb(0, 0, 0.43);
-      font-family: "Roboto Mono", monospace;
-      margin-top: 1rem;
-    }
-    li span {
-      color: #203964;
-    }
-    .tab {
-      overflow: hidden;
-      border: 1px solid #ccc;
-      background-color: #f1f1f1;
-    }
-    .tab button {
-      background-color: inherit;
-      float: left;
-      border: none;
-      outline: none;
-      cursor: pointer;
-      padding: 14px 16px;
-      transition: 0.3s;
-    }
-    .tab button:hover {
-      background-color: #ddd;
-    }
-    .tab button.active {
-      background-color: #ccc;
     }
   `;
 }
